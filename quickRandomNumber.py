@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-#QuickRandomNumber v1.0
+#QuickRandomNumber v1.1
 
-import telebot, random, json
+import telebot, json
+from datetime import datetime
 from time import sleep
-from telebot.types import ReplyKeyboardMarkup, ForceReply, ReplyKeyboardRemove
+from telebot.types import ReplyKeyboardMarkup, ReplyKeyboardRemove
 
 with open('config.json', 'r') as file:  config = json.load(file)
 
@@ -57,9 +58,12 @@ def botactions(bot):
     @bot.message_handler(commands=['LoteriaNacional'])
     def cmd_nacional(message):
         sleep(WAIT_NAVEGACION)
-        numero = random.randint(0, 99999)
-
-        bot.send_message(message.chat.id, 'Núm. Lotería Nacional:\n----- <b>' + str(numero) + ' -----</b>', parse_mode="html")
+        #numero = random.randint(0, 99999)
+        now = datetime.now()
+        microseconds = now.strftime('%f') #Microseconds
+        numero = microseconds[1:]
+        print(now)
+        bot.send_message(message.chat.id, 'Núm. Lotería Nacional:\n----- <b>' + numero + ' -----</b>', parse_mode="html")
         showButtons(bot, message.chat.id)
 #--------------------------------------------------------------------------------------------------
 bot_polling()
