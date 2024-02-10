@@ -60,8 +60,7 @@ def botactions(bot):
         sleep(WAIT_NAVEGACION)
         #numero = random.randint(0, 99999)
         now = datetime.now()
-        microseconds = now.strftime('%f') #Microseconds
-        numero = microseconds[1:]
+        numero = now.strftime('%f')[:5] #Microseconds. First five digits.
         print(now)
         bot.send_message(message.chat.id, 'Núm. Lotería Nacional:\n----- <b>' + numero + ' -----</b>', parse_mode="html")
         showButtons(bot, message.chat.id)
